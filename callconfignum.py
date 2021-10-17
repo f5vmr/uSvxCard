@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# F8ASB 2020
+# G4NAB 2021
 
 import configparser, os
 import json
@@ -28,7 +28,7 @@ usage= " "
 Id = " "
 test=0
 
-# lancement avec argument
+# commit with arguements
     
 def main(argv):
     global dept 
@@ -70,17 +70,17 @@ def Input_control(dept,call,band):
         print(dept+call+band)
         usage()
     else:
-#Mise en forme des calls
+#updating the calls
         upcallsignSVX=(call)
         upcallsignEL=( "EL-" +call)
         upcallsignRRF=("(" +dept+ ") " +call+" "+band)
 
-#Impression des calls
+#writing the calls
         print(call)
         print( call + "-EL")
         print("(" +dept+ ") " +call+" "+band)
 
-#MAJ dans les fichiers de config
+#CAPS in the config files
         updatecall(upcallsignSVX,upcallsignEL,upcallsignRRF)
         updatecallel(upcallsignSVX,upcallsignEL)
         updatecallelconf(upcallsignSVX)
@@ -94,19 +94,19 @@ def Input_control(dept,call,band):
 def usage():
     print('Usage: callconfig.py [options ...]')
     print()
-    print('--help                           Cette aide')
-    print('--version                        Numéro de version')
+    print('--help                           This help')
+    print('--version                        Version number')
     print()
-    print('Parametrages:')
+    print('Parameters:')
     print() 
-    print('  --dept       nombre      Entrer le numero de departement ex:88')
-    print('  --call       texte       Entrer votre indicatif ex:F1ABC')
-    print('  --band       nombre      Entrer la type acces (H,V,U,10M,R,T,T10M,S)')
+    print('  --dept       number      Enter the departement ex:99 for the UK')
+    print('  --call       textc       Enter your callsign ex:G4ABC')
+    print('  --band       number      Enter the access type (H,V,U,10M,R,T,T10M,S)')
     print()
-    print('73 de F8ASB Juan')
+    print('73 de G4NAB Chris')
 
 
-#Fonction ecriture dans svxlink.cfg
+#Function writing svxlink.cfg
 def updatecall(callsignSVX,callsignEL,callsignRRF):
  
     config = ConfigParser()
@@ -126,7 +126,7 @@ def updatecall(callsignSVX,callsignEL,callsignRRF):
     with open(svxlinkcfg, 'w') as configfile:
         config.write(configfile, space_around_delimiters=False)
 
-#Fonction ecriture dans svxlink.el
+#Function Writing in svxlink.el
 def updatecallel(callsignSVX,callsignEL):
 
     config = ConfigParser()
@@ -143,7 +143,7 @@ def updatecallel(callsignSVX,callsignEL):
     with open(svxlinkel, 'w') as configfile:
         config.write(configfile, space_around_delimiters=False)
 
-#Fonction ecriture dans moduleecholinkconf
+#Function writing into moduleecholinkconf
 def updatecallelconf(callsignSVX):
 
     config = ConfigParser()
@@ -158,29 +158,29 @@ def updatecallelconf(callsignSVX):
         config.write(configfile, space_around_delimiters=False)
 
 
-#Fonction ecriture dans config.json
+#Function writing in config.json
 def updatecall_json():
 
-    #lecture de donnees JSON
+    #read data JSON
     with open(Json, 'r') as f:
         config = json.load(f)
         config['callsign'] = call
         config['Departement'] = dept
         config['band_type'] = band
-    #ecriture de donnees JSON
+    #write data JSON
     with open(Json, 'w') as f:
         json.dump(config, f)    
 #
-#PARTIE NUMERIQUE
+#Digital part
 #
 
-#rechercher Id selon call
+#looking up DMR Id with respect to call
 def searchId(callsignId):
     global Id
     global test
     
     fichier = open(fileId,"r")
-    print("Recherche de l'Id ...")
+    print("Looking up Id ...")
     for ligne in fichier:
         if callsignId in ligne:
             Id = ((ligne).split())
@@ -189,7 +189,7 @@ def searchId(callsignId):
     fichier.close()
 
     if Id==" ":
-            print('\x1b[7;37;41m'+"->VOTRE INDICATIF NE FIGURE PAS DANS LA DATABASE DMRIds.dat "+'\x1b[0m')
+            print('\x1b[7;37;41m'+"->Your callsign does not figure in the DATABASE DMRIds.dat "+'\x1b[0m')
             os.system('sh /usr/local/sbin/DMRIDUpdate.sh')
             
             if test==0:
@@ -203,7 +203,7 @@ def searchId(callsignId):
     else:
         controlID(Id,analogbridgeini)
 
-#Mise a jour Id dans les fichiers de config numeriques
+#Update Id in the digital folder
 
 def updateIdMMDMV_Bridge(callsign,Id):
         
@@ -221,7 +221,7 @@ def updateIdMMDMV_Bridge(callsign,Id):
     with open(analogbridgeini, 'w') as configfile:
     #
         config.write(configfile, space_around_delimiters=False)
-        print("Ecriture MMDMV_Bridge.ini ...")
+        print("Writing MMDMV_Bridge.ini ...")
 
 def updateIdANALOG_Bridge(callsign,Id):
 
@@ -240,7 +240,7 @@ def updateIdANALOG_Bridge(callsign,Id):
         config.write(configfile, space_around_delimiters=False)
         print("Ecriture ANALOG_Bridge.ini ...")
 
-#Mise a jour des fichiers gateway
+#Update gateway folders
 def updateGateway(callsign,fileini):
         
     config = ConfigParser()
@@ -258,7 +258,7 @@ def updateGateway(callsign,fileini):
         config.write(configfile, space_around_delimiters=False)
         print("Ecriture "+fileini+" ...")    
 
-#Mise a jour du fichier MMDVM_Bridge.dmr
+#Updating MMDVM_Bridge.dmr
 def updateMMDVM(callsign,fileini):
 
     config = ConfigParser()
@@ -274,7 +274,7 @@ def updateMMDVM(callsign,fileini):
 
     with open(fileini, 'w') as configfile:
         config.write(configfile, space_around_delimiters=False)
-        print("Ecriture "+fileini+" ...")
+        print("Writing "+fileini+" ...")
 
 def controlID(id,fileini):
     
@@ -289,7 +289,7 @@ def controlID(id,fileini):
     string_val = config.get('AMBE_AUDIO', 'gatewayDmrId')
     
     if string_val==id:
-        print(string_val+' deja present...fin de la procedure')
+        print(string_val+' already present...ending procedure')
         sys.exit()
      
 
