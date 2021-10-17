@@ -1,7 +1,7 @@
 #!/bin/bash
-# MENU DE SELECTION POUR uSvxCard  
+# SELECTION Menu for uSvxCard  
 #
-#  F4ICR&F5SWB&F8ASB  21/11/2020
+#  F4ICR&F5SWB&F8ASB  21/11/2021
 #
 HEIGHT=15
 WIDTH=40
@@ -9,20 +9,20 @@ PATH_SCRIPT='/opt/uSvxCard/callconfig.py'
 
 entrercall()
 {
-call=$(whiptail --inputbox "Entrer votre indicatif ?" 8 39 FXXXX --title "INDICATIF" 3>&1 1>&2 2>&3)
+call=$(whiptail --inputbox "Enter your callsign ?" 8 39 GXXXX --title "CALLSIGN" 3>&1 1>&2 2>&3)
 exitstatus=$?
 
 if [ $exitstatus = 0 ]; then
-    echo "Indicatif: " $call
+    echo "Callsign: " $call
     entrerdept
 else
-    echo "Annulation"; 
+    echo "Cancel"; 
     spot
 fi
 }
 entrerdept()
 {
-dept=$(whiptail --inputbox "Entrer votre departement ?" 8 39 XX --title "DEPARTEMENT" 3>&1 1>&2 2>&3)
+dept=$(whiptail --inputbox "Enter your departement ?" 8 39 XX --title "DEPARTEMENT" 3>&1 1>&2 2>&3)
 
 exitstatus=$?
 
@@ -30,22 +30,22 @@ if [ $exitstatus = 0 ]; then
     echo "Departement: " $dept
     entrerband
 else
-    echo "Annulation"; break;
+    echo "Cancel"; break;
     entrercall
 fi
 }
 
 entrerband()
 {
-band=$(whiptail --title "Type de HOTSPOT" --radiolist \
-"Choisissez le type de HOTSPOT?" 15 60 8 \
+band=$(whiptail --title "Type of HOTSPOT" --radiolist \
+"Choose the type of HOTSPOT?" 15 60 8 \
 "U" "UHF" ON \
 "V" "VHF" OFF \
 "H" "HOTSPOT" OFF \
-"T" "TRANSPONDEUR" OFF \
-"R" "RELAIS" OFF \
-"10M" "LINK SIMPLEX 10M" OFF \
-"T10M" "TRANSPONDEUR AVEC VOIE 10M" OFF \
+"T" "TRANSPONDER" OFF \
+"R" "REPEATER" OFF \
+"10M" "SIMPLEX LINK 10M" OFF \
+"T10M" "TRANSPONDER WITH 10M" OFF \
 "S" "SPECIAL" OFF 3>&1 1>&2 2>&3)
 
 exitstatus=$?
@@ -71,46 +71,46 @@ fi
 
 while : ; do
 
-choix=$(whiptail --title "MicroSvxCard Menu 1.1 "  --menu "                    >> Faites votre choix " 40 70 31 \
-1 "  Redémarrage Spotnik en mode Perroquet'95'" \
-2 "  Redémarrage Spotnik sur le RRF '96'" \
-3 "  Redémarrage Spotnik sur le FON Room '97'" \
-4 "  Redémarrage Spotnik sur le TEC Room '98'" \
-5 "  Redémarrage Spotnik sur le INT Room '99'" \
-6 "  Redémarrage Spotnik sur le BAV Room '100'" \
-7 "  Redémarrage Spotnik sur le LOC Room '101'" \
-8 "  Redémarrage Spotnik sur le EXP Room '102'" \
-9 "  Redémarrage Spotnik sur EchoLink '103'" \
-10 "  Redémarrage Spotnik sur le Régional '104'" \
-11 "  Affichage du LOG Spotnik 'CTRL C' pour quitter" \
-12 "  Editer Svxlink.cfg (configuration pour tous les salons)" \
-13 "  Editer Svxlink.el  (configuration pour ECHOLINK) " \
-14 "  Editer le ModuleEchoLink.conf (configuration password)" \
-15 "  Editer l'aéroport pour la météo" \
+choix=$(whiptail --title "MicroSvxCard Menu 1.1 "  --menu "                    >> Make your choice " 40 70 31 \
+1 "  Restart Spotnik in Parrot mode '95'" \
+2 "  Restart Spotnik on the RRF '96'" \
+3 "  Restart Spotnik on the FON Room '97'" \
+4 "  Restart Spotnik on the TEC Room '98'" \
+5 "  Restart Spotnik on the INT Room '99'" \
+6 "  Restart Spotnik on the BAV Room '100'" \
+7 "  Restart Spotnik on the LOC Room '101'" \
+8 "  Restart Spotnik on the EXP Room '102'" \
+9 "  Restart Spotnik on EchoLink '103'" \
+10 "  Restart Spotnik on Regional '104'" \
+11 "  Show the LOG Spotnik 'CTRL C' to quit" \
+12 "  Edit Svxlink.cfg (configuration for all rooms)" \
+13 "  Edit Svxlink.el  (configuration for ECHOLINK) " \
+14 "  Edit the ModuleEchoLink.conf (configuration password)" \
+15 "  Edit the airports for the weather" \
 16 "  MC Midnight Commander" \
-17 "  Configuration du Wifi wpa_supplicant.conf" \
-18 "  Configuration de la carte son Alsamixer" \
-19 "  Configuration mail pour la fonction Moniteur de propagation" \
-20 "  Configuration de la carte uDraCard " \
-21 "  Configuration du Spotnik (Indicatif, Département, Bande) " \
+17 "  Configuration of Wifi wpa_supplicant.conf" \
+18 "  Configuration of the sound card with Alsamixer" \
+19 "  Configuration mail for the function of the propagation monitor" \
+20 "  Configuration of the uDraCard card " \
+21 "  Configuration of Spotnik (Callsign, Departement, Band) " \
 22 "  Configuration Dwagent " \
-23 "  Activation / Désactivation du Mode RAPTOR " \
-24 "  Activation / Désactivation de l'écran NEXTION" \
-25 "  Activation / Désactivation du Timer salon " \
-26 "  Activation / Désactivation du DTMF " \
-27 "  Marche / Arrêt SvxControl et SvxLink" \
-28 "  Redémarrage complet du système "  \
-29 "  Arrêt complet du système " 3>&1 1>&2 2>&3)
+23 "  Activation / Deactivation of RAPTOR Mode " \
+24 "  Activation / Deactivation of NEXTION Screen " \
+25 "  Activation / Deactivation of the Room Timer " \
+26 "  Activation / Deactivation of the DTMF " \
+27 "  Start / Stop SvxControl and SvxLink" \
+28 "  Complete restart of the system "  \
+29 "  Complete halt of the system " 3>&1 1>&2 2>&3)
 
 
 exitstatus=$?
 
-#on recupere ce choix
+#recovering the choice
 #exitstatus=$?
 if [ $exitstatus = 0 ]; then
-    echo "votre choix :" $choix
+    echo "your choice :" $choix
 else
-    echo "Annulation du choix."; break;
+    echo "Cancel the choice."; break;
 fi
 
 
