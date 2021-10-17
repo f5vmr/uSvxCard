@@ -14,7 +14,7 @@ call = " "
 dept= " "
 band = " "
 usage=""
-# lancement avec argument
+# Start with arguements
     
 def main(argv):
     global dept 
@@ -56,16 +56,16 @@ def Input_control(dept,call,band):
         print(dept+call+band)
         usage()
     else:
-#Mise en forme des calls
+#Add the calls
         upcallsignSVX=(call)
         upcallsignEL=( "EL-" +call)
         upcallsignRRF=("(" +dept+ ") " +call+" "+band)
 
-#Impression des calls
+#Print the calls
         print(call)
         print( call + "-EL")
         print("(" +dept+ ") " +call+" "+band)
-#MAJ dans les fichiers
+#Make the callsign in CAPS
         updatecall(upcallsignSVX,upcallsignEL,upcallsignRRF)
         updatecall_json()
                 
@@ -79,11 +79,11 @@ def usage():
     print()
     print('Parametrages:')
     print() 
-    print('  --dept       nombre      Entrer le numero de departement ex:88')
-    print('  --call       texte       Entrer votre indicatif ex:F1ABC')
-    print('  --band       nombre      Entrer la type acces (H,V,U,10M,R,T,T10M,S)')
+    print('  --dept       number      Enter the departement number ex:99 for the UK')
+    print('  --call       text        Enter your callsign ex:G4ABC')
+    print('  --band       number      Enter the type of access (H,V,U,10M,R,T,T10M,S)')
     print()
-    print('73 de F8ASB Juan')
+    print('73 de G4NAB Chris')
 
 
 #Fonction ecriture dans svxlink.cfg
@@ -94,39 +94,39 @@ def updatecall(callsignSVX,callsignEL,callsignRRF):
     except ImportError:
         from ConfigParser import ConfigParser  # ver. < 3.0
 
-    # instantiate
+    # Parse
     config = ConfigParser()
     config.optionxform = str
 
     # parse existing file
     config.read(svxlinkcfg)
 
-    # lecture et maj
+    # read and make CAPS
     string_val = config.get('SimplexLogic', 'CALLSIGN')
     config.set('SimplexLogic', 'CALLSIGN', callsignSVX)
 
-    # lecture et maj
+    # read and make CAPS
     string_val = config.get('LocationInfo', 'CALLSIGN')
     config.set('LocationInfo', 'CALLSIGN', callsignEL)
 
-    # lecture et maj
+    # read and make CAPS
     string_val = config.get('ReflectorLogic', 'CALLSIGN')
     config.set('ReflectorLogic', 'CALLSIGN', callsignRRF)
 
-    # Enregistrement
+    # Writing
     with open(svxlinkcfg, 'w') as configfile:
         config.write(configfile, space_around_delimiters=False)
 
-#Fonction ecriture dans config.json
+#Function write to config.json
 def updatecall_json():
 
-    #lecture de donnees JSON
+    #read data JSON
     with open(Json, 'r') as f:
         config = json.load(f)
         config['callsign'] = call
         config['Departement'] = dept
         config['band_type'] = band
-    #ecriture de donnees JSON
+    #write data JSON
     with open(Json, 'w') as f:
         json.dump(config, f)    
 
