@@ -2,19 +2,19 @@
 
 Usage: callconfig.py [options ...]')
 
-   --help                           Cette aide
+   --help                           This Help file
    
-   --version                        Numéro de version
+   --version                        Version number
    
     Parametrages:
    
-    --dept       nombre      Entrer le numero de departement ex:88
-    --call       texte       Entrer votre indicatif ex:F1ABC
-    --band       nombre      Entrer la type acces (H,V,U,10M,R,T,T10M,S)
+    --dept       number      Enter your department ex:99 for UK
+    --call       text        Enter your callsign ex: G4ABC
+    --band       number      Enter the type of access (H,V,U,10M,R,T,T10M,S)
 ## callconfignum.py
 
-Même mode de fonctinnement que callconfig.py avec les fichiers numérique en plus
+Same mode of oeprating as callconfig.py with the digital and more
     
 ## shutdown.py
 
-Pour plus d'informations se rendre sur: <http://blog.f8asb.com/2020/04/17/eteindre-son-raspberry-avec-un-bouton-sur-gpio/>
+For more information go to: <http://blog.f8asb.com/2020/04/17/eteindre-son-raspberry-avec-un-bouton-sur-gpio/>
